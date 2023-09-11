@@ -7,8 +7,8 @@
             <div class="blogs">
                 <BlogList :articlesf="getFilteredArticlesComp" />
                 <div class="blogs-tags">
-                    <button v-for="(item, index) in arrayOfTags" :key="index" @click="sortItem = item" class="blogsTag">{{
-                        item }}</button>
+                    <button v-for="(item, index) in arrayOfTags" :key="index" @click="sortItem = item" 
+                    class="blogsTag">{{ item }}</button>
                 </div>
             </div>
         </div>

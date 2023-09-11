@@ -3,7 +3,7 @@
         <header>
             <div class="container">
                 <nav class="headerTopMenu">
-                    <a href="Index.html">
+                    <a href="#" @click="$emit('goToMain')">
                         <div class="logoLeft">
                             <svg class="logoLeft__img" xmlns="http://www.w3.org/2000/svg" width="34" height="34"
                                 viewBox="0 0 34 34" fill="none">
@@ -16,7 +16,7 @@
                     </a>
                     <div class="headerRight">
                         <div class="headerRight__menuItem" @click="$emit('goToMain')"><a href="#">Home</a></div>
-                        <div class="headerRight__menuItem"><a href="#">Project</a></div>
+                        <div class="headerRight__menuItem" @click="$emit('goToProjects')"><a href="#">Project</a></div>
                         <div class="headerRight__menuItem" @click="$emit('goToBlog')"><a href="#">Blog</a></div>
                     </div>
                 </nav>

@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <Header v-if="showHeader" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" />
+    <Header v-if="showHeader" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects = "goToOurProjectsFunc"/>
     <Main v-if="showMain" />
     <Blog v-if="showBlog" @goToBlogDetails="goToBlogDetailsFunc" :articles="articles" />
     <BlogDetails v-if="showBlogDetails" :articles="articles" />
-    <Footer v-if="showFooter" />
+    <OurProjects v-if="showOurProjects" :projects="projects" />
+    <Footer v-if="showFooter" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects = "goToOurProjectsFunc"/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Footer from './blocks/Footer.vue'
 import Main from './pages/Main.vue'
 import Blog from './pages/Blog.vue'
 import BlogDetails from './pages/BlogDetails.vue'
+import OurProjects from './pages/OurProjects.vue'
 
 export default {
   name: 'App',
@@ -23,6 +25,7 @@ export default {
     Main,
     Blog,
     BlogDetails,
+    OurProjects,
   },
   data() {
     return {
@@ -31,7 +34,90 @@ export default {
       showBlog: false,
       showFooter: true,
       showBlogDetails: false,
+      showOurProjects: false,
       actualComponentName: 'Main',
+
+      projects: [
+        {
+          id: 1,
+          image: require("@/images/project2.png"),
+          projectName: "Minimal Bedroom",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 2,
+          image: require("@/images/project1.png"),
+          projectName: "Minimal Bedroom",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 3,
+          image: require("@/images/project3.png"),
+          projectName: "Classic Minimal Bedroom",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 4,
+          image: require("@/images/project4.png"),
+          projectName: "Modern Bedroom",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 5,
+          image: require("@/images/project5.png"),
+          projectName: "Minimal Bedroom",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 6,
+          image: require("@/images/project6.png"),
+          projectName: "Minimal Bedroom table",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 7,
+          image: require("@/images/project7.png"),
+          projectName: "System Table",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 8,
+          image: require("@/images/project8.png"),
+          projectName: "Modern Bedroom",
+          desc: "Decor / Artchitecture",
+          tag: "bedroom",
+        },
+        {
+          id: 9,
+          image: require("@/images/article3.png"),
+          projectName: "Bathroom",
+          desc: "Decor / Artchitecture",
+          tag: "bathroom",
+        },
+        {
+          id: 10,
+          image: require("@/images/article1.png"),
+          projectName: "Kitchen",
+          desc: "Decor / Artchitecture",
+          tag: "kitchen",
+        },
+        {
+          id: 8,
+          image: require("@/images/article5.png"),
+          projectName: "Living Area",
+          desc: "Decor / Artchitecture",
+          tag: "livingArea",
+        },
+
+        
+      ],
 
       articles: [
         {
@@ -140,16 +226,29 @@ export default {
     goToblogFunc() {
       this.showBlog = true;
       this.showMain = false;
+      this.showBlogDetails = false;
+      this.showOurProjects = false;
     },
 
     goToMainFunc() {
       this.showBlog = false;
       this.showMain = true;
+      this.showBlogDetails = false;
+      this.showOurProjects = false;
     },
 
     goToBlogDetailsFunc() {
       this.showBlog = false;
+      this.showMain = false;
       this.showBlogDetails = true;
+      this.showOurProjects = false;
+    },
+
+    goToOurProjectsFunc() {
+      this.showBlog = false;
+      this.showMain = false;
+      this.showBlogDetails = false;
+      this.showOurProjects = true;
     },
 
     changeFlag(item) {

@@ -3,7 +3,7 @@
         <footer>
         <div class="container footerSet">
             <div class="footerSet__leftModule">
-                <a href="Index.html">
+                <a href="#" @click="$emit('goToMain')">
                     <div class="logoLeft">
                         <svg class="logoLeft__img" xmlns="http://www.w3.org/2000/svg" width="34" height="34"
                             viewBox="0 0 34 34" fill="none">
@@ -33,9 +33,9 @@
             </div>
             <nav class="footerSet__middleModule">
                 <div class="footerSet__heading">Pages</div>
-                <div class="footerSet__text"><a href="Index.html">Home</a></div>
-                <div class="footerSet__text"><a href="#">Project</a></div>
-                <div class="footerSet__text"><a href="blog.html">Blog</a></div>
+                <div class="footerSet__text"><a href="#" @click="$emit('goToMain')">Home</a></div>
+                <div class="footerSet__text"><a href="#" @click="$emit('goToProjects')">Project</a></div>
+                <div class="footerSet__text"><a href="#" @click="$emit('goToBlog')">Blog</a></div>
             </nav>
             <div class="footerSet__rightModule">
                 <div class="footerSet__heading">Contact</div>
