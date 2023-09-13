@@ -204,7 +204,7 @@
 export default {
     name: 'Main-component',
     props: {
-        msg: String
+        
     }
 }
 </script>

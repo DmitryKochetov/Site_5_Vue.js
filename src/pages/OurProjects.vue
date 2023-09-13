@@ -9,10 +9,10 @@
             </div>
             <div class="container">
                 <div class="categoriesSwitch">
-                    <div class="categoriesSwitch__item" @click="sortItem = 'bathroom'">Bathroom</div>
-                    <div class="categoriesSwitch__item" @click="sortItem = 'bedroom'">Bed Room</div>
-                    <div class="categoriesSwitch__item" @click="sortItem = 'kitchen'">Kitchen</div>
-                    <div class="categoriesSwitch__item" @click="sortItem = 'livingArea'">Living Area</div>
+                    <div class="categoriesSwitch__item" @click="CHANGEPROJECTSORTITEM('bathroom')">Bathroom</div>
+                    <div class="categoriesSwitch__item" @click="CHANGEPROJECTSORTITEM('bedroom')">Bed Room</div>
+                    <div class="categoriesSwitch__item" @click="CHANGEPROJECTSORTITEM('kitchen')">Kitchen</div>
+                    <div class="categoriesSwitch__item" @click="CHANGEPROJECTSORTITEM('livingArea')">Living Area</div>
                 </div>
 
                 <div class="ourProjectSet">
@@ -24,7 +24,7 @@
                                 <div class="ourProjectSetCard__disc">{{ item.desc }}</div>
                             </div>
                             <div class="ourProjectSetCard__infoRight">
-                                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70"
+                                <a href="#" @click="$emit('goToProjectDetails'), CHANGESELECTEDPROJECTID(item.id)"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70"
                                         viewBox="0 0 70 70" fill="none">
                                         <circle cx="35" cy="35" r="35" fill="#F4F0EC" />
                                         <path d="M32 44L40 35L32 26" stroke="#292F36" stroke-width="2"
@@ -68,10 +68,10 @@
 </template>
   
 <script>
+import {mapMutations, mapGetters} from 'vuex';
 export default {
     name: 'Blog-component',
     props: {
-        projects: [],
     },
 
     data() {
@@ -80,18 +80,15 @@ export default {
         }
     },
     computed: {
-        getFilteredProjectsComp() {
-            if (this.sortItem === '') {
-                return this.projects;
-            }
-            return this.projects.filter(el => el.tag === this.sortItem);
-        },
+        ...mapGetters(['getFilteredProjectsComp']),
 
+    },
+    methods: {
+        ...mapMutations(['CHANGEPROJECTSORTITEM', 'CHANGESELECTEDPROJECTID']),
     },
 }
 </script>
-  
-  <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
 .standartDMText {
     font-family: DM Serif Display;

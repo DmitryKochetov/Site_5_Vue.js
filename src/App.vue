@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <Header v-if="showHeader" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects = "goToOurProjectsFunc"/>
+    <Header v-if="showHeader" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects="goToOurProjectsFunc" />
     <Main v-if="showMain" />
-    <Blog v-if="showBlog" @goToBlogDetails="goToBlogDetailsFunc" :articles="articles" />
-    <BlogDetails v-if="showBlogDetails" :articles="articles" />
-    <OurProjects v-if="showOurProjects" :projects="projects" />
-    <Footer v-if="showFooter" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects = "goToOurProjectsFunc"/>
+    <Blog v-if="showBlog" @goToBlogDetails="goToBlogDetailsFunc" />
+    <BlogDetails v-if="showBlogDetails" />
+    <OurProjects v-if="showOurProjects" @goToProjectDetails="goToProjectDetailsFunc"/>
+    <ProjectDetails v-if="showProjectDetails"/>
+    <Footer v-if="showFooter" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects="goToOurProjectsFunc" />
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import Main from './pages/Main.vue'
 import Blog from './pages/Blog.vue'
 import BlogDetails from './pages/BlogDetails.vue'
 import OurProjects from './pages/OurProjects.vue'
+import ProjectDetails from './pages/ProjectDetails.vue'
 
 export default {
   name: 'App',
@@ -26,6 +28,7 @@ export default {
     Blog,
     BlogDetails,
     OurProjects,
+    ProjectDetails,
   },
   data() {
     return {
@@ -35,192 +38,13 @@ export default {
       showFooter: true,
       showBlogDetails: false,
       showOurProjects: false,
+      showProjectDetails: false,
       actualComponentName: 'Main',
 
-      projects: [
-        {
-          id: 1,
-          image: require("@/images/project2.png"),
-          projectName: "Minimal Bedroom",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 2,
-          image: require("@/images/project1.png"),
-          projectName: "Minimal Bedroom",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 3,
-          image: require("@/images/project3.png"),
-          projectName: "Classic Minimal Bedroom",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 4,
-          image: require("@/images/project4.png"),
-          projectName: "Modern Bedroom",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 5,
-          image: require("@/images/project5.png"),
-          projectName: "Minimal Bedroom",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 6,
-          image: require("@/images/project6.png"),
-          projectName: "Minimal Bedroom table",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 7,
-          image: require("@/images/project7.png"),
-          projectName: "System Table",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 8,
-          image: require("@/images/project8.png"),
-          projectName: "Modern Bedroom",
-          desc: "Decor / Artchitecture",
-          tag: "bedroom",
-        },
-        {
-          id: 9,
-          image: require("@/images/article3.png"),
-          projectName: "Bathroom",
-          desc: "Decor / Artchitecture",
-          tag: "bathroom",
-        },
-        {
-          id: 10,
-          image: require("@/images/article1.png"),
-          projectName: "Kitchen",
-          desc: "Decor / Artchitecture",
-          tag: "kitchen",
-        },
-        {
-          id: 8,
-          image: require("@/images/article5.png"),
-          projectName: "Living Area",
-          desc: "Decor / Artchitecture",
-          tag: "livingArea",
-        },
-
-        
-      ],
-
-      articles: [
-        {
-          id: 1,
-          image: require("@/images/article1.png"),
-          label: 'Kitchen Design',
-          heading: 'Let’s Get Solution For Building Construction Work',
-          date: '26 December,2022 ',
-          link: '#',
-          text: `Lorem ipsum dolor sit amet, adipiscing Aliquam eu sem vitae
-                            turpmaximus.posuere in.Contrary to popular belief.There are many variations 
-                            of passages of Lorem Ipsum available, but the majority have suffered 
-                            alteration in some form, by injecthumour, or randomised words which don't 
-                            look even slightly believable. Embarrassing hidden in the middle of text.
-                            All the Lorem Ipsum generators on the Internet tend to repeat predefined 
-                            chunks as necessary.`,
-          tag: 'kitchen',
-          summary: 'summary for article 1',
-        },
-        {
-          id: 2,
-          image: require("@/images/article2.png"),
-          label: 'Living Design',
-          heading: 'Low Cost Latest Invented Interior Designing Ideas.',
-          date: '22 December,2022 ',
-          link: '#',
-          text: `Text for article 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Delectus, possimus? Alias aut fuga explicabo in voluptates, labore, asperiores 
-                        accusamus odit ullam temporibus adipisci at perferendis nulla sed voluptas cum 
-                        enim repellat. Deleniti numquam quas aliquid mollitia dolores repellat sed, quam 
-                        xpedita in tempora libero unde, fugit sit aspernatur, officiis voluptatibus.`,
-          tag: 'kitchen',
-          summary: 'summary for article 2',
-        },
-        {
-          id: 3,
-          image: require("@/images/article3.png"),
-          label: 'Interior Design',
-          heading: 'Best For Any Office & Business Interior Solution',
-          date: '25 December,2022 ',
-          link: '#',
-          text: `Text for article 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Delectus, possimus? Alias aut fuga explicabo in voluptates, labore, asperiores 
-                        accusamus odit ullam temporibus adipisci at perferendis nulla sed voluptas cum 
-                        enim repellat. Deleniti numquam quas aliquid mollitia dolores repellat sed, quam 
-                        expedita in tempora libero unde, fugit sit aspernatur, officiis voluptatibus.`,
-          tag: 'bedroom',
-          summary: 'summary for article 3',
-        },
-        {
-          id: 4,
-          image: require("@/images/article4.png"),
-          label: 'Kitchen Design',
-          heading: 'Let’s Get Solution For Building Construction Work',
-          date: '26 December,2022 ',
-          link: '#',
-          text: `Text for article 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Delectus, possimus? Alias aut fuga explicabo in voluptates, labore, asperiores 
-                        accusamus odit ullam temporibus adipisci at perferendis nulla sed voluptas cum 
-                        enim repellat. Deleniti numquam quas aliquid mollitia dolores repellat sed, quam 
-                        expedita in tempora libero unde, fugit sit aspernatur, officiis voluptatibus.`,
-          tag: 'building',
-          summary: 'summary for article 4',
-        },
-        {
-          id: 5,
-          image: require("@/images/article5.png"),
-          label: 'Living Design',
-          heading: 'Low Cost Latest Invented Interior Designing Ideas.',
-          date: '22 December,2022 ',
-          link: '#',
-          text: `Text for article 5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Delectus, possimus? Alias aut fuga explicabo in voluptates, labore, asperiores 
-                        accusamus odit ullam temporibus adipisci at perferendis nulla sed voluptas cum 
-                        enim repellat. Deleniti numquam quas aliquid mollitia dolores repellat sed, quam 
-                        expedita in tempora libero unde, fugit sit aspernatur, officiis voluptatibus.`,
-          tag: `Architecture`,
-          summary: 'summary for article 5',
-        },
-        {
-          id: 6,
-          image: require("@/images/article6.png"),
-          label: 'Interior Design',
-          heading: 'Best For Any Office & Business Interior Solution',
-          date: '25 December,2022 ',
-          link: '#',
-          text: `Text for article 6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Delectus, possimus? Alias aut fuga explicabo in voluptates, labore, asperiores 
-                        accusamus odit ullam temporibus adipisci at perferendis nulla sed voluptas cum 
-                        enim repellat. Deleniti numquam quas aliquid mollitia dolores repellat sed, quam 
-                        expedita in tempora libero unde, fugit sit aspernatur, officiis voluptatibus.`,
-          tag: `Kitchen Planning`,
-          summary: 'summary for article 6',
-        },
-      ],
     }
   },
   computed: {
 
-    result() {
-      return this.products.reduce((sum, current) =>
-        sum + current.pcs * current.price, 0);
-    }
   },
   methods: {
     goToblogFunc() {
@@ -228,6 +52,7 @@ export default {
       this.showMain = false;
       this.showBlogDetails = false;
       this.showOurProjects = false;
+      this.showProjectDetails = false;
     },
 
     goToMainFunc() {
@@ -235,6 +60,7 @@ export default {
       this.showMain = true;
       this.showBlogDetails = false;
       this.showOurProjects = false;
+      this.showProjectDetails = false;
     },
 
     goToBlogDetailsFunc() {
@@ -242,6 +68,7 @@ export default {
       this.showMain = false;
       this.showBlogDetails = true;
       this.showOurProjects = false;
+      this.showProjectDetails = false;
     },
 
     goToOurProjectsFunc() {
@@ -249,6 +76,15 @@ export default {
       this.showMain = false;
       this.showBlogDetails = false;
       this.showOurProjects = true;
+      this.showProjectDetails = false;
+    },
+
+    goToProjectDetailsFunc(){
+      this.showBlog = false;
+      this.showMain = false;
+      this.showBlogDetails = false;
+      this.showOurProjects = false;
+      this.showProjectDetails = true;
     },
 
     changeFlag(item) {

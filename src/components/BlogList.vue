@@ -1,12 +1,13 @@
 <template>
     <div class="blogs-list">
-        <div v-for="(article, index) in articlesf" :key="index">
-        <BlogArticle :article="article"/>    
+        <div v-for="(article, index) in getFilteredArticlesComp" :key="index">
+            <BlogArticle :article="article" />
         </div>
     </div>
 </template>
   
 <script>
+import {mapGetters} from 'vuex';
 import BlogArticle from '../components/BlogArticle.vue'
 export default {
     name: 'Blog-List',
@@ -14,8 +15,11 @@ export default {
         BlogArticle,
     },
     props: {
-        articlesf: [],
-    }
+        
+    },
+    computed: {
+        ...mapGetters(['getFilteredArticlesComp']),
+    },
 }
 </script>
 

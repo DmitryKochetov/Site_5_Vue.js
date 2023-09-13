@@ -34,7 +34,7 @@
                 </div>
                 <div class="latestPostHeading">Articles & News</div>
                 <div class="articlesSet">
-                    <div v-for="article in articles" :key="article.id" class="article">
+                    <div v-for="article in getArticles" :key="article.id" class="article">
                         <img :src="article.image" alt="iterior" class="article__image">
                         <div class="article__label">{{ article.label }}</div>
                         <div class="article__heading">{{ article.heading }}</div>
@@ -82,16 +82,20 @@
 </template>
   
 <script>
+import {mapGetters} from 'vuex';
 export default {
     name: 'Blog-component',
     props: {
-        articles: [],
+        // articles: [],
     },
     
     data() {
         return {
 
         }
+    },
+    computed: {
+        ...mapGetters(['getArticles']),
     },
 }
 </script>

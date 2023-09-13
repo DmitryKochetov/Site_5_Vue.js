@@ -1,29 +1,27 @@
 <template>
-    <div class="blogDetails">
-        <div class="blogDetailsTop"></div>
-
-
+    <div class="ProjectDetails">
+        <div class="projectDetailsTop"></div>
         <div class="container">
-            <div class="blogs">
-                <BlogList/>
-                <div class="blogs-tags">
-                    <button v-for="(item, index) in arrayOfTags" :key="index" @click="CHANGEARTICLESSORTITEM(item)" 
-                    class="blogsTag">{{ item }}</button>
-                </div>
+            <div class="projectInformation">
+                <h2 class="projectInformation__header">{{ getProject.projectName }}</h2>
+                <p class="projectInformation__text">{{ getProject.text }}</p>
             </div>
+            <ProjectSlider></ProjectSlider>
         </div>
+
     </div>
 </template>
   
 <script>
-import {mapMutations, mapGetters} from 'vuex';
-import BlogList from '../components/BlogList.vue'
+import { mapMutations, mapGetters } from 'vuex';
+import ProjectSlider from '../components/ProjectSlider.vue';
+
 
 export default {
-    
-    name: 'BlogDetails-component',
+
+    name: 'ProjectDetails-component',
     components: {
-        BlogList,
+        ProjectSlider,
     },
     props: {
 
@@ -35,7 +33,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getArticles', 'arrayOfTags']),
+        ...mapGetters(['getProject']),
     },
     methods: {
         ...mapMutations(['CHANGEARTICLESSORTITEM']),
@@ -80,10 +78,33 @@ export default {
     font-weight: 400;
 }
 
-.blogDetailsTop {
+.projectInformation {
+    max-height: 1200px;
+    max-width: 658px;
+    margin: 96px auto 96px auto;
+
+    &__header {
+        color: #292F36;
+        @extend .standartDMText;
+        font-size: 50px;
+        line-height: 125%;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+
+    &__text {
+        color: #4D5053;
+        @extend .standartJostText;
+        font-size: 22px;
+        line-height: 150%;
+        letter-spacing: 0.22px;
+    }
+}
+
+.projectDetailsTop {
     height: 340px;
     width: 100vw;
-    background: no-repeat url("../images/blogDetailsTop.jpg");
+    background: no-repeat url('../images/projectDetailsTop.jpg');
     background-size: cover;
 }
 
@@ -159,31 +180,6 @@ export default {
     flex-wrap: wrap;
     gap: 10px;
     height: fit-content;
-}
-
-
-.blogsTag {
-    display: flex;
-    padding: 9px 30px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #f4f0ec;
-    color: #292f36;
-    text-align: center;
-    @extend .standartJostText;
-    font-size: 18px;
-    line-height: 125%;
-    letter-spacing: 0.36px;
-    max-height: 41px;
-}
-
-.blogsTag:active {
-    background: #292F36;
-    color: #FFF;
-
 }
 </style>
   
