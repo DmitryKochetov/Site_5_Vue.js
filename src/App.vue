@@ -1,95 +1,76 @@
 <template>
   <div id="app">
-    <Header v-if="showHeader" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects="goToOurProjectsFunc" />
-    <Main v-if="showMain" />
-    <Blog v-if="showBlog" @goToBlogDetails="goToBlogDetailsFunc" />
-    <BlogDetails v-if="showBlogDetails" />
-    <OurProjects v-if="showOurProjects" @goToProjectDetails="goToProjectDetailsFunc"/>
-    <ProjectDetails v-if="showProjectDetails"/>
-    <Footer v-if="showFooter" @goToBlog="goToblogFunc" @goToMain="goToMainFunc" @goToProjects="goToOurProjectsFunc" />
+    <Header v-if="showHeader"/>
+    <router-view />
+    <Footer v-if="getShowFooterFlag"/>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import Header from './blocks/Header.vue'
 import Footer from './blocks/Footer.vue'
-import Main from './pages/Main.vue'
-import Blog from './pages/Blog.vue'
-import BlogDetails from './pages/BlogDetails.vue'
-import OurProjects from './pages/OurProjects.vue'
-import ProjectDetails from './pages/ProjectDetails.vue'
 
 export default {
+  
   name: 'App',
   components: {
     Header,
     Footer,
-    Main,
-    Blog,
-    BlogDetails,
-    OurProjects,
-    ProjectDetails,
   },
   data() {
     return {
       showHeader: true,
-      showMain: true,
-      showBlog: false,
-      showFooter: true,
-      showBlogDetails: false,
-      showOurProjects: false,
-      showProjectDetails: false,
-      actualComponentName: 'Main',
-
+      // showFooter: true,
     }
   },
   computed: {
-
-  },
+        ...mapGetters(['getShowFooterFlag']),
+    },
   methods: {
-    goToblogFunc() {
-      this.showBlog = true;
-      this.showMain = false;
-      this.showBlogDetails = false;
-      this.showOurProjects = false;
-      this.showProjectDetails = false;
-    },
+    // goToblogFunc() {
+    //   this.showBlog = true;
+    //   this.showMain = false;
+    //   this.showBlogDetails = false;
+    //   this.showOurProjects = false;
+    //   this.showProjectDetails = false;
+    // },
 
-    goToMainFunc() {
-      this.showBlog = false;
-      this.showMain = true;
-      this.showBlogDetails = false;
-      this.showOurProjects = false;
-      this.showProjectDetails = false;
-    },
+    // goToMainFunc() {
+    //   this.showBlog = false;
+    //   this.showMain = true;
+    //   this.showBlogDetails = false;
+    //   this.showOurProjects = false;
+    //   this.showProjectDetails = false;
+    // },
 
-    goToBlogDetailsFunc() {
-      this.showBlog = false;
-      this.showMain = false;
-      this.showBlogDetails = true;
-      this.showOurProjects = false;
-      this.showProjectDetails = false;
-    },
+    // goToBlogDetailsFunc() {
+    //   this.showBlog = false;
+    //   this.showMain = false;
+    //   this.showBlogDetails = true;
+    //   this.showOurProjects = false;
+    //   this.showProjectDetails = false;
+    // },
 
-    goToOurProjectsFunc() {
-      this.showBlog = false;
-      this.showMain = false;
-      this.showBlogDetails = false;
-      this.showOurProjects = true;
-      this.showProjectDetails = false;
-    },
+    // goToOurProjectsFunc() {
+    //   this.showBlog = false;
+    //   this.showMain = false;
+    //   this.showBlogDetails = false;
+    //   this.showOurProjects = true;
+    //   this.showProjectDetails = false;
+    // },
 
-    goToProjectDetailsFunc(){
-      this.showBlog = false;
-      this.showMain = false;
-      this.showBlogDetails = false;
-      this.showOurProjects = false;
-      this.showProjectDetails = true;
-    },
+    // goToProjectDetailsFunc() {
+    //   this.showBlog = false;
+    //   this.showMain = false;
+    //   this.showBlogDetails = false;
+    //   this.showOurProjects = false;
+    //   this.showProjectDetails = true;
+    // },
 
-    changeFlag(item) {
-      item.isOpenedFlag = !item.isOpenedFlag;
-    }
+    // changeFlag(item) {
+    //   item.isOpenedFlag = !item.isOpenedFlag;
+    // }
   }
 
 }
@@ -98,7 +79,6 @@ export default {
 </script>
 
 <style lang="scss">
-#app {}
 
 .defaultBautton {
   display: flex;

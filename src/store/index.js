@@ -5,12 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // начальное состояние
-
     sortProjectItem: "",
     sortArticlesItem: "",
     selectedProjectId: 1,
-
+    showFooter: true,
 
     projects: [
       {
@@ -251,10 +249,28 @@ export default new Vuex.Store({
         tag: `Kitchen Planning`,
         summary: "summary for article 6",
       },
+      {
+        id: 7,
+        image: require("@/images/article6.png"),
+        label: "Article 7",
+        heading: "Best For Any Office & Business Interior Solution",
+        date: "25 December,2022 ",
+        link: "#",
+        text: `Text for article 6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                      Delectus, possimus? Alias aut fuga explicabo in voluptates, labore, asperiores 
+                      accusamus odit ullam temporibus adipisci at perferendis nulla sed voluptas cum 
+                      enim repellat. Deleniti numquam quas aliquid mollitia dolores repellat sed, quam 
+                      expedita in tempora libero unde, fugit sit aspernatur, officiis voluptatibus.`,
+        tag: `Kitchen Planning`,
+        summary: "summary for article 6",
+      },
     ],
   },
   mutations: {
-    // методы для изменения состояния
+    CHANGEFOOTERSHOWFLAG(state, showFooter){
+      state.showFooter = showFooter;
+    },
+
     CHANGEPROJECTSORTITEM(state, sortProjectItem) {
       state.sortProjectItem = sortProjectItem;
     },
@@ -268,10 +284,12 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // методы для асинхронных операций
+
   },
   getters: {
-    // методы для чтения состояния
+    getShowFooterFlag(state){
+      return state.showFooter;
+    },
 
     arrayOfTags(state) {
       return Array.from(new Set(state.articles.map((item) => item.tag)));
@@ -299,6 +317,6 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    // модули Vuex для разделения хранилища на под-хранилища
+
   },
 });

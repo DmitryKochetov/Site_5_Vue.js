@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="ourProjectSet">
-                    <div v-for="(item, index) in getFilteredProjectsComp" :key="index" class="ourProjectSetCard">
+                    <div v-for="(item, index) in productsForCurrentPage" :key="index" class="ourProjectSetCard">
                         <img :src="item.image" class="ourProjectSetCard__img" alt="great project pic">
                         <div class="ourProjectSetCard__info">
                             <div class="ourProjectSetCard__infoLeft">
@@ -24,12 +24,14 @@
                                 <div class="ourProjectSetCard__disc">{{ item.desc }}</div>
                             </div>
                             <div class="ourProjectSetCard__infoRight">
-                                <a href="#" @click="$emit('goToProjectDetails'), CHANGESELECTEDPROJECTID(item.id)"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70"
-                                        viewBox="0 0 70 70" fill="none">
-                                        <circle cx="35" cy="35" r="35" fill="#F4F0EC" />
-                                        <path d="M32 44L40 35L32 26" stroke="#292F36" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg></a>
+                                <router-link to="/ProjectDetails">
+                                    <a href="#" @click="CHANGESELECTEDPROJECTID(item.id)"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70"
+                                            fill="none">
+                                            <circle cx="35" cy="35" r="35" fill="#F4F0EC" />
+                                            <path d="M32 44L40 35L32 26" stroke="#292F36" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg></a></router-link>
                             </div>
                         </div>
                     </div>
@@ -37,30 +39,14 @@
                 </div>
 
                 <div class="paginationBar">
-                    <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
-                            viewBox="0 0 53 52" fill="none">
-                            <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
-                        </svg>
-                        <div class="paginationBar__number">01</div>
-                    </div>
-                    <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
-                            viewBox="0 0 53 52" fill="none">
-                            <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
-                        </svg>
-                        <div class="paginationBar__number">02</div>
-                    </div>
-                    <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
-                            viewBox="0 0 53 52" fill="none">
-                            <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
-                        </svg>
-                        <div class="paginationBar__number">03</div>
-                    </div>
-                    <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
-                            viewBox="0 0 53 52" fill="none">
-                            <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
-                            <path d="M23.5571 32L29.5 25.3143L23.5571 18.6286" stroke="#292F36" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></div>
+                    <router-link v-for="page in numberOfProductPages" :to="`/OurProjects/${page}`" :key="page">
+                        <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
+                                viewBox="0 0 53 52" fill="none">
+                                <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
+                            </svg>
+                            <div class="paginationBar__number"> {{ page }}</div>
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </main>
@@ -68,20 +54,37 @@
 </template>
   
 <script>
-import {mapMutations, mapGetters} from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 export default {
-    name: 'Blog-component',
+    name: 'OurProject-component',
     props: {
     },
 
     data() {
         return {
             sortItem: '',
+            currentPage: 1,
         }
     },
     computed: {
         ...mapGetters(['getFilteredProjectsComp']),
+        numberOfProductPages() {
+            return Math.ceil(this.getFilteredProjectsComp.length / 5);
+        },
+        productsForCurrentPage() {
+            const { currentPage } = this;
+            let startIndex = currentPage;
 
+            return this.getFilteredProjectsComp.slice(((startIndex - 1) * 5), ((startIndex - 1) * 5) + 5);
+        },
+
+    },
+    watch: {
+        $route() {
+            const page = this.$route.params.page;
+            this.currentPage = +page;
+
+        },
     },
     methods: {
         ...mapMutations(['CHANGEPROJECTSORTITEM', 'CHANGESELECTEDPROJECTID']),

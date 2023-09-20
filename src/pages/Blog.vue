@@ -23,34 +23,46 @@
                             Lorem Ipsum is not simply random text. It has roots in a piece of classica.</div>
                         <div class="latestPostSet__down">
                             <div class="latestPostSet__date">26 December,2022</div>
-                            <a href="#" @click="$emit('goToBlogDetails')"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="53" viewBox="0 0 52 53"
-                                    fill="none">
-                                    <circle cx="26" cy="26.5" r="26" fill="#F4F0EC" />
-                                    <path d="M23.771 33.1855L29.7139 26.4998L23.771 19.8141" stroke="#292F36"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg></a>
+                            <router-link to="BlogDetails">
+                                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="53"
+                                        viewBox="0 0 52 53" fill="none">
+                                        <circle cx="26" cy="26.5" r="26" fill="#F4F0EC" />
+                                        <path d="M23.771 33.1855L29.7139 26.4998L23.771 19.8141" stroke="#292F36"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg></a></router-link>
                         </div>
                     </div>
                 </div>
                 <div class="latestPostHeading">Articles & News</div>
                 <div class="articlesSet">
-                    <div v-for="article in getArticles" :key="article.id" class="article">
+                    <div v-for="article in productsForCurrentPage" :key="article.id" class="article">
                         <img :src="article.image" alt="iterior" class="article__image">
                         <div class="article__label">{{ article.label }}</div>
                         <div class="article__heading">{{ article.heading }}</div>
                         <div class="article__down">
                             <div class="article__date">{{ article.date }}</div>
-                            <a href="#" class="article__link" @click="$emit('goToBlogDetails')"><svg class="article__button"
-                                    xmlns="http://www.w3.org/2000/svg" width="52" height="53" viewBox="0 0 52 53"
-                                    fill="none">
-                                    <circle cx="26" cy="26.267" r="26" fill="#F4F0EC" />
-                                    <path d="M23.7714 32.9527L29.7143 26.267L23.7714 19.5813" stroke="#292F36"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg></a>
+                            <router-link to="BlogDetails">
+                                <a href="#" class="article__link"><svg class="article__button"
+                                        xmlns="http://www.w3.org/2000/svg" width="52" height="53" viewBox="0 0 52 53"
+                                        fill="none">
+                                        <circle cx="26" cy="26.267" r="26" fill="#F4F0EC" />
+                                        <path d="M23.7714 32.9527L29.7143 26.267L23.7714 19.5813" stroke="#292F36"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg></a></router-link>
                         </div>
                     </div>
                 </div>
                 <div class="paginationBar">
+                    <router-link v-for="page in numberOfProductPages" :to="`/Blog/${page}`" :key="page">
+                        <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
+                                viewBox="0 0 53 52" fill="none">
+                                <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
+                            </svg>
+                            <div class="paginationBar__number"> {{ page }}</div>
+                        </div>
+                    </router-link>
+                </div>
+                <!-- <div class="paginationBar">
                     <div class="paginationBar__element"><svg xmlns="http://www.w3.org/2000/svg" width="53" height="52"
                             viewBox="0 0 53 52" fill="none">
                             <circle cx="26.5" cy="26" r="25.5" stroke="#CDA274" />
@@ -75,27 +87,46 @@
                             <path d="M23.5571 32L29.5 25.3143L23.5571 18.6286" stroke="#292F36" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg></div>
-                </div>
+                </div> -->
             </div>
         </main>
     </div>
 </template>
   
 <script>
-import {mapGetters} from 'vuex';
+import {mapMutations, mapGetters } from 'vuex';
 export default {
     name: 'Blog-component',
     props: {
-        // articles: [],
     },
-    
+
     data() {
         return {
-
+            sortItem: '',
+            currentPage: 1,
         }
     },
     computed: {
         ...mapGetters(['getArticles']),
+        numberOfProductPages() {
+            return Math.ceil(this.getArticles.length / 6);
+        },
+        productsForCurrentPage() {
+            const { currentPage } = this;
+            let startIndex = currentPage;
+
+            return this.getArticles.slice(((startIndex - 1) * 6), ((startIndex - 1) * 6) + 6);
+        },
+    },
+    watch: {
+        $route() {
+            const page = this.$route.params.page;
+            this.currentPage = +page;
+
+        },
+    },
+    methods: {
+        ...mapMutations(['CHANGEPROJECTSORTITEM', 'CHANGESELECTEDPROJECTID']),
     },
 }
 </script>
@@ -244,8 +275,8 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 20px;
-    max-width: 270px;
     margin: 100px auto 200px auto;
 
     &__element {

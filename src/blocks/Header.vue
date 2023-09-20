@@ -3,7 +3,7 @@
         <header>
             <div class="container">
                 <nav class="headerTopMenu">
-                    <a href="#" @click="$emit('goToMain')">
+                    <router-link to="/">
                         <div class="logoLeft">
                             <svg class="logoLeft__img" xmlns="http://www.w3.org/2000/svg" width="34" height="34"
                                 viewBox="0 0 34 34" fill="none">
@@ -13,11 +13,17 @@
                             </svg>
                             <div class="logoLeft__text">Interno</div>
                         </div>
-                    </a>
+                    </router-link>
                     <div class="headerRight">
-                        <div class="headerRight__menuItem" @click="$emit('goToMain')"><a href="#">Home</a></div>
-                        <div class="headerRight__menuItem" @click="$emit('goToProjects')"><a href="#">Project</a></div>
-                        <div class="headerRight__menuItem" @click="$emit('goToBlog')"><a href="#">Blog</a></div>
+                        <router-link to="/">
+                            <div class="headerRight__menuItem">Home</div>
+                        </router-link>
+                        <router-link to="/OurProjects">
+                        <div class="headerRight__menuItem">Project</div>
+                    </router-link>
+                        <router-link to="/Blog">
+                        <div class="headerRight__menuItem">Blog</div>
+                    </router-link>
                     </div>
                 </nav>
             </div>
@@ -34,5 +40,4 @@ export default {
 }
 </script>
   
-  <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>
